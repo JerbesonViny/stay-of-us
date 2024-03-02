@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: stayofus-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: your-mongo-username
+      MONGO_INITDB_ROOT_PASSWORD: your-mongo-password
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongodb-data:/data/db
