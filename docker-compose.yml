@@ -5,9 +5,8 @@ services:
     image: mongo:latest
     container_name: stayofus-mongodb
     environment:
-      MONGO_INITDB_ROOT_USERNAME: your-mongo-username
-      MONGO_INITDB_ROOT_PASSWORD: your-mongo-password
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: test
+      MONGO_INITDB_DATABASE: stayofus
     ports:
       - "27017:27017"
-    volumes:
-      - ./mongodb-data:/data/db
