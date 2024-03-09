@@ -1,12 +1,11 @@
-import { Query, Resolver } from "type-graphql";
+import { Ctx, Query, Resolver } from "type-graphql";
 import { User } from "@/application/resolvers/user/types";
-
-const mockedUsers = [{ id: 1, name: "Jerbeson" }];
+import { Context } from "@/application/types";
 
 @Resolver(() => User)
 export class UserResolver {
   @Query(() => [User])
-  async users() {
-    return mockedUsers;
+  async users(@Ctx() { db }: Context) {
+    return db.collection("users").find({}).toArray();
   }
 }
