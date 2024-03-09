@@ -3,18 +3,11 @@ import "../../../src/main/config/module-alias";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { CreateUser } from "@/domain/features";
 import { makeCreateUserUseCase } from "@/tests/units/user/factories";
 import { UserAlreadyExists } from "@/domain/errors";
+import { userInput } from "@/tests/units/user/mocks";
 
 describe("CreateUserUseCase", () => {
-  const userInput: CreateUser.Input = {
-    name: "Mocked name",
-    login: "Mocked login",
-    password: "Mocked password",
-    confirmPassword: "Mocked password",
-  };
-
   let createUserUseCase: any;
 
   beforeAll(() => {
