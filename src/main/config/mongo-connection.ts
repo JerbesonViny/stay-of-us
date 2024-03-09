@@ -3,10 +3,40 @@ import enviroments from "@/config";
 
 const url = `mongodb://${enviroments.mongo.username}:${enviroments.mongo.password}@${enviroments.mongo.host}:${enviroments.mongo.port}`;
 
-export async function createMongoConnection() {
-  const client = new MongoClient(url);
+export class MongoDatabase {
+  private client: MongoClient;
 
-  await client.connect();
+  async setMongoClient() {
+    this.client = new MongoClient(url);
 
-  return client.db(enviroments.mongo.database);
+    await this.client.connect();
+  }
+
+  async getConnection() {
+    await this.setMongoClient();
+
+    return this.client.db(enviroments.mongo.database);
+  }
+
+  getMongoClient() {
+    return this.client;
+  }
+
+  async close() {
+    await this.client.close();
+  }
+}
+
+export class MongoConnectionSingleton {
+  private static instance: MongoDatabase;
+
+  constructor() {
+    if (!MongoConnectionSingleton.instance) {
+      MongoConnectionSingleton.instance = new MongoDatabase();
+    }
+  }
+
+  getInstance() {
+    return MongoConnectionSingleton.instance;
+  }
 }

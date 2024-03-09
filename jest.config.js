@@ -6,6 +6,7 @@ const config = {
     "@/tests/(.+)": "<rootDir>/tests/$1",
     "@/(.+)": "<rootDir>/src/$1",
   },
+  moduleFileExtensions: ["js", "ts", "json"],
   roots: ["<rootDir>/tests"],
   testEnvironment: "jest-environment-node",
   transform: {

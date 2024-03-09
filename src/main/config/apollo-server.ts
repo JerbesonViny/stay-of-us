@@ -2,7 +2,7 @@ import { ApolloServer } from "apollo-server-express";
 import { GraphQLSchema } from "graphql";
 import Container from "typedi";
 
-import { MONGO_CONNECTION, createMongoConnection } from "@/main/config";
+import { MONGO_CONNECTION, MongoConnectionSingleton } from "@/main/config";
 import { createContainer } from "@/main/utils";
 
 type CreateApolloServerInput = {
@@ -16,7 +16,9 @@ export function createApolloServer({
     schema,
     context: async ({ req }) => {
       const { container, requestId } = createContainer();
-      const dbConnection = await createMongoConnection();
+      const dbConnection = await new MongoConnectionSingleton()
+        .getInstance()
+        .getConnection();
       const context = { requestId, container }; // Create context
 
       container.set("context", context);

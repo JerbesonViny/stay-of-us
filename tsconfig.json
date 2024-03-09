@@ -4,7 +4,7 @@
     "outDir": "dist",
     "rootDir": "src",
     "module": "commonjs",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "sourceMap": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
