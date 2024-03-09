@@ -1,4 +1,4 @@
-export const config = {
+export default {
   mongo: {
     username: process.env.MONGO_USERNAME,
     password: process.env.MONGO_PASSWORD,
