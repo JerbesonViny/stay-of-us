@@ -8,19 +8,22 @@ import {
   MongoConnectionSingleton,
   MongoDatabase,
 } from "@/main/config/mongo-connection";
-import { Db, ObjectId } from "mongodb";
+import { Db } from "mongodb";
+import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
 
 describe("FindUsersService", () => {
   let findUsersService: FindUsersService;
-  let mongoConnectionSingleton: MongoDatabase;
+  let mongoDatabase: MongoDatabase;
   let mongoConnection: Db;
 
   beforeAll(async () => {
-    mongoConnectionSingleton = new MongoConnectionSingleton().getInstance();
+    mongoDatabase = new MongoConnectionSingleton().getInstance();
+    mongoConnection = await mongoDatabase.getConnection();
+    await resetDatabase({ mongoConnection });
+    await populateDatabase({ mongoConnection });
   });
 
   beforeEach(async () => {
-    mongoConnection = await mongoConnectionSingleton.getConnection();
     findUsersService = new FindUsersService(mongoConnection);
   });
 
@@ -29,17 +32,12 @@ describe("FindUsersService", () => {
   });
 
   afterAll(async () => {
-    await mongoConnectionSingleton.close();
+    await mongoDatabase.close();
   });
 
   it("Should get all users", async () => {
     const users = await findUsersService.perform();
 
-    expect(users).toEqual([
-      {
-        _id: new ObjectId("65ec6b173adbcd6214ef6241"),
-        name: "mocked name",
-      },
-    ]);
+    expect(users).toMatchSnapshot();
   });
 });

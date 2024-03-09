@@ -7,7 +7,7 @@
     "build": "rimraf dist && tsc -p tsconfig-build.json",
     "start": "yarn build && node dist/index.js",
     "dev": "yarn build && ts-node-dev src/index.ts --respawn",
-    "test": "jest --detectOpenHandles  --testTimeout=60000 -i --forceExit",
+    "test": "jest --detectOpenHandles --no-cache --testTimeout=60000 -i --forceExit",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage"
   },

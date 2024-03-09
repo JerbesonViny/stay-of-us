@@ -7,6 +7,7 @@ const config = {
     "@/(.+)": "<rootDir>/src/$1",
   },
   moduleFileExtensions: ["js", "ts", "json"],
+  testRegex: [".unit-spec.ts$", ".integration-spec.ts$", ".e2e-spec.ts$"],
   roots: ["<rootDir>/tests"],
   testEnvironment: "jest-environment-node",
   transform: {
