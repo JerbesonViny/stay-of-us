@@ -1,16 +1,21 @@
-import { ID, Mutation, Query, Resolver, Arg } from "type-graphql";
-import { User, UserInput } from "@/application/resolvers/user/types";
+import { Mutation, Query, Resolver, Arg } from "type-graphql";
+import {
+  User,
+  CreateUserInput,
+  CreateUserOutput,
+} from "@/application/resolvers/user/types";
 import { Inject, Service } from "typedi";
 import { FindUsersService } from "@/application/services";
-import { CreateUser } from "@/domain/features";
+import { ICreateUserUseCase } from "@/domain/features";
+import { CREATE_USER_USE_CASE } from "@/application/usecases";
 
 @Service()
 @Resolver(() => User)
 export class UserResolver {
   constructor(
-    @Inject()
     private readonly findUsersService: FindUsersService,
-    private readonly createUserUseCase: CreateUser
+    @Inject(CREATE_USER_USE_CASE)
+    private readonly createUserUseCase: ICreateUserUseCase
   ) {}
 
   @Query(() => [User])
@@ -18,8 +23,8 @@ export class UserResolver {
     return this.findUsersService.perform();
   }
 
-  @Mutation(() => ID)
-  async createUser(@Arg("input") user: UserInput) {
+  @Mutation(() => CreateUserOutput)
+  async createUser(@Arg("input") user: CreateUserInput) {
     return this.createUserUseCase.perform(user);
   }
 }

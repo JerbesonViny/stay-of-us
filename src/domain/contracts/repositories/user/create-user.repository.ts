@@ -1,4 +1,4 @@
-export namespace CreateUserRepository {
+export namespace ICreateUserRepository {
   export type Input = {
     name: string;
     login: string;
@@ -11,8 +11,8 @@ export namespace CreateUserRepository {
   };
 }
 
-export interface CreateUserRepository {
+export interface ICreateUserRepository {
   perform(
-    input: CreateUserRepository.Input
-  ): Promise<CreateUserRepository.Output>;
+    input: ICreateUserRepository.Input
+  ): Promise<ICreateUserRepository.Output>;
 }

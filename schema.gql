@@ -3,6 +3,21 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input CreateUserInput {
+  confirmPassword: String
+  login: String
+  name: String
+  password: String
+}
+
+type CreateUserOutput {
+  id: ID
+}
+
+type Mutation {
+  createUser(input: CreateUserInput): CreateUserOutput
+}
+
 type Query {
   users: [User]
 }
