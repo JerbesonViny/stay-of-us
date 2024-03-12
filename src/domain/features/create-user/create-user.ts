@@ -1,6 +1,6 @@
 import { Feature } from "@/domain/features/abstract.feature";
 
-export namespace ICreateUserUseCase {
+export namespace CreateUserUseCase {
   export type Input = {
     name: string;
     login: string;
@@ -13,8 +13,5 @@ export namespace ICreateUserUseCase {
   };
 }
 
-export interface ICreateUserUseCase
-  extends Feature<
-    ICreateUserUseCase.Input,
-    Promise<ICreateUserUseCase.Output>
-  > {}
+export interface CreateUserUseCase
+  extends Feature<CreateUserUseCase.Input, Promise<CreateUserUseCase.Output>> {}

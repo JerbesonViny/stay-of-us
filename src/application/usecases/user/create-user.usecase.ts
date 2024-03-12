@@ -1,20 +1,20 @@
 import { Inject, Service } from "typedi";
-import { ICreateUserUseCase } from "@/domain/features";
-import { ICreateUserRepository } from "@/domain/contracts/repositories";
+import { CreateUserUseCase } from "@/domain/features";
+import { CreateUserRepository } from "@/domain/contracts/repositories";
 import { CREATE_USER_REPOSITORY } from "@/infra/repositories";
 
 export const CREATE_USER_USE_CASE = "create-user.usecase";
 
 @Service(CREATE_USER_USE_CASE)
-export class CreateUserUseCase implements ICreateUserUseCase {
+export class CreateUserUseCaseImpl implements CreateUserUseCase {
   constructor(
     @Inject(CREATE_USER_REPOSITORY)
-    private createUserRepository: ICreateUserRepository
+    private createUserRepository: CreateUserRepository
   ) {}
 
   async perform(
-    input: ICreateUserUseCase.Input
-  ): Promise<ICreateUserUseCase.Output> {
+    input: CreateUserUseCase.Input
+  ): Promise<CreateUserUseCase.Output> {
     const { id } = await this.createUserRepository.perform(input);
 
     return {

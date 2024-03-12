@@ -1,6 +1,6 @@
-import { ICreateUserUseCase } from "@/domain/features";
+import { CreateUserUseCase } from "@/domain/features";
 
-export const userInput: ICreateUserUseCase.Input = {
+export const userInput: CreateUserUseCase.Input = {
   name: "Mocked name",
   login: "Mocked login",
   password: "Mocked password",

@@ -1,4 +1,4 @@
-import { ICreateUserRepository } from "@/domain/contracts/repositories";
+import { CreateUserRepository } from "@/domain/contracts/repositories";
 import { Inject, Service } from "typedi";
 import { MONGO_CONNECTION } from "@/main/config/constants";
 import { Db } from "mongodb";
@@ -6,7 +6,7 @@ import { Db } from "mongodb";
 export const CREATE_USER_REPOSITORY = "create-user.repository";
 
 @Service(CREATE_USER_REPOSITORY)
-export class CreateUserRepository implements ICreateUserRepository {
+export class CreateUserRepositoryImpl implements CreateUserRepository {
   constructor(
     @Inject(MONGO_CONNECTION)
     private mongoConnection: Db
@@ -17,7 +17,7 @@ export class CreateUserRepository implements ICreateUserRepository {
     login,
     password,
     confirmPassword,
-  }: ICreateUserRepository.Input): Promise<ICreateUserRepository.Output> {
+  }: CreateUserRepository.Input): Promise<CreateUserRepository.Output> {
     const users = await this.mongoConnection.collection("users").insertOne({
       name,
       login,

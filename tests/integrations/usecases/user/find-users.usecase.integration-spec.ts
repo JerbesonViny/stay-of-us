@@ -3,16 +3,20 @@ import "../../../../src/main/config/module-alias";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { FindUsersService } from "@/application/services";
+import { FindUsersUseCaseImpl } from "@/application/usecases";
+import { FindUsersRepositoryImpl } from "@/infra/repositories";
 import {
   MongoConnectionSingleton,
   MongoDatabase,
 } from "@/main/config/mongo-connection";
 import { Db } from "mongodb";
 import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
+import { FindUsersUseCase } from "@/domain/features";
+import { FindUsersRepository } from "@/domain/contracts/repositories";
 
-describe("FindUsersService", () => {
-  let findUsersService: FindUsersService;
+describe("FindUsersUseCase", () => {
+  let findUsersUseCase: FindUsersUseCase;
+  let findUsersRepository: FindUsersRepository;
   let mongoDatabase: MongoDatabase;
   let mongoConnection: Db;
 
@@ -24,7 +28,8 @@ describe("FindUsersService", () => {
   });
 
   beforeEach(async () => {
-    findUsersService = new FindUsersService(mongoConnection);
+    findUsersRepository = new FindUsersRepositoryImpl(mongoConnection);
+    findUsersUseCase = new FindUsersUseCaseImpl(findUsersRepository);
   });
 
   afterEach(async () => {
@@ -36,7 +41,7 @@ describe("FindUsersService", () => {
   });
 
   it("Should get all users", async () => {
-    const users = await findUsersService.perform();
+    const users = await findUsersUseCase.perform();
 
     expect(users).toMatchSnapshot();
   });
