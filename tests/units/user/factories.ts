@@ -1,7 +1,14 @@
 import { CreateUserUseCase } from "@/domain/features";
 import { UserResolver } from "@/application/resolvers";
-import { CreateUserUseCaseImpl } from "@/application/usecases";
-import { CreateUserRepository } from "@/domain/contracts/repositories";
+import {
+  CreateUserUseCaseImpl,
+  FindUsersUseCaseImpl,
+} from "@/application/usecases";
+import {
+  CreateUserRepository,
+  FindUsersRepository,
+} from "@/domain/contracts/repositories";
+import { mockedUsers } from "@/tests/mocks";
 
 export function makeCreateUserUseCase() {
   const createUserUseCaseSpy: CreateUserUseCase = {
@@ -13,15 +20,24 @@ export function makeCreateUserUseCase() {
   return createUserUseCaseSpy;
 }
 
-export function makeCreateUserResolver() {
-  const findUsersService = {
-    perform: jest.fn(),
+export function makeUserResolver() {
+  const findUsersRepository: FindUsersRepository = {
+    perform: jest.fn().mockResolvedValue(mockedUsers),
   };
   const createUserRepository: CreateUserRepository = {
     perform: jest.fn().mockResolvedValue({ id: "Mocked id" }),
   };
 
+  const findUsersUseCase = new FindUsersUseCaseImpl(findUsersRepository);
   const createUserUseCase = new CreateUserUseCaseImpl(createUserRepository);
 
-  return new UserResolver(findUsersService as any, createUserUseCase);
+  const sut = new UserResolver(findUsersUseCase, createUserUseCase);
+
+  return {
+    findUsersRepository,
+    createUserRepository,
+    findUsersUseCase,
+    createUserUseCase,
+    sut,
+  };
 }

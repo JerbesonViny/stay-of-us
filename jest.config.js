@@ -1,5 +1,6 @@
 const config = {
   collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+  coveragePathIgnorePatterns: ["types.ts", "index.ts"],
   coverageDirectory: "coverage",
   coverageProvider: "babel",
   moduleNameMapper: {
@@ -12,6 +13,14 @@ const config = {
   testEnvironment: "jest-environment-node",
   transform: {
     "\\.ts$": "ts-jest",
+  },
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 72,
+      lines: 90,
+      statements: 90,
+    },
   },
 };
 

@@ -12,7 +12,7 @@ import {
 } from "@/application/usecases";
 
 @Service()
-@Resolver(() => User)
+@Resolver()
 export class UserResolver {
   constructor(
     @Inject(FIND_USERS_USE_CASE)

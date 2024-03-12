@@ -5,7 +5,7 @@ dotenv.config();
 
 import { makeCreateUserUseCase } from "@/tests/units/user/factories";
 import { UserAlreadyExists } from "@/domain/errors";
-import { userInput } from "@/tests/units/user/mocks";
+import { mockedUser } from "@/tests/mocks";
 
 describe("CreateUserUseCase", () => {
   let createUserUseCase: any;
@@ -19,7 +19,7 @@ describe("CreateUserUseCase", () => {
   });
 
   it("Should create user with success", async () => {
-    const result = await createUserUseCase.perform(userInput);
+    const result = await createUserUseCase.perform(mockedUser);
 
     expect(result).toEqual({
       id: "Mocked id",
@@ -29,7 +29,7 @@ describe("CreateUserUseCase", () => {
   it("Should throw UserAlrearyExists when login already used", async () => {
     createUserUseCase.perform.mockRejectedValueOnce(new UserAlreadyExists());
 
-    const result = createUserUseCase.perform(userInput);
+    const result = createUserUseCase.perform(mockedUser);
 
     expect(result).rejects.toThrowError("User already exists");
   });

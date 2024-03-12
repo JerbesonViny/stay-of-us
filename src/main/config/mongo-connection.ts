@@ -18,10 +18,6 @@ export class MongoDatabase {
     return this.client.db(enviroments.mongo.database);
   }
 
-  getMongoClient() {
-    return this.client;
-  }
-
   async close() {
     await this.client.close();
   }
