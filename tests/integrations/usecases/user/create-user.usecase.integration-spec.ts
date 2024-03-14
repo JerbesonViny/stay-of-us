@@ -14,10 +14,13 @@ import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
 import { CreateUserUseCase } from "@/domain/features";
 import { CreateUserRepository } from "@/domain/contracts/repositories";
 import { mockedUser } from "@/tests/mocks";
+import { CreateHashServiceImpl } from "@/application/services";
+import { CreateHashService } from "@/domain/services";
 
 describe("CreateUserUseCase", () => {
   let createUserUseCase: CreateUserUseCase;
   let createUserRepository: CreateUserRepository;
+  let createHashService: CreateHashService;
   let mongoDatabase: MongoDatabase;
   let mongoConnection: Db;
 
@@ -29,8 +32,12 @@ describe("CreateUserUseCase", () => {
   });
 
   beforeEach(async () => {
+    createHashService = new CreateHashServiceImpl();
     createUserRepository = new CreateUserRepositoryImpl(mongoConnection);
-    createUserUseCase = new CreateUserUseCaseImpl(createUserRepository);
+    createUserUseCase = new CreateUserUseCaseImpl(
+      createHashService,
+      createUserRepository
+    );
   });
 
   afterEach(async () => {

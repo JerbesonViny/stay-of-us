@@ -16,13 +16,11 @@ export class CreateUserRepositoryImpl implements CreateUserRepository {
     name,
     login,
     password,
-    confirmPassword,
   }: CreateUserRepository.Input): Promise<CreateUserRepository.Output> {
     const users = await this.mongoConnection.collection("users").insertOne({
       name,
       login,
       password,
-      confirmPassword,
     });
 
     return {

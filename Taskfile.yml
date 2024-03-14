@@ -1,0 +1,18 @@
+version: '3'
+
+env:
+  GREETING: Hey, there!
+
+tasks:
+  test:
+    cmd: yarn test
+
+  test:coverage:
+    cmd: yarn test:coverage
+
+
+  default:
+    cmds:
+      - docker-compose up -d --force-recreate
+
+  

@@ -3,7 +3,6 @@ export namespace CreateUserRepository {
     name: string;
     login: string;
     password: string;
-    confirmPassword: string;
   };
 
   export type Output = {
