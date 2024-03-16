@@ -15,3 +15,5 @@ export namespace CreateUserUseCase {
 
 export interface CreateUserUseCase
   extends Feature<CreateUserUseCase.Input, Promise<CreateUserUseCase.Output>> {}
+
+export const CREATE_USER_USE_CASE = "create-user.usecase";

@@ -15,3 +15,5 @@ export interface CreateUserRepository {
     input: CreateUserRepository.Input
   ): Promise<CreateUserRepository.Output>;
 }
+
+export const CREATE_USER_REPOSITORY = "create-user.repository";

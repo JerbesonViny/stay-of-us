@@ -5,11 +5,12 @@ import {
   CreateUserOutput,
 } from "@/application/resolvers/user/types";
 import { Inject, Service } from "typedi";
-import { FindUsersUseCase, CreateUserUseCase } from "@/domain/features";
 import {
-  CREATE_USER_USE_CASE,
+  FindUsersUseCase,
+  CreateUserUseCase,
   FIND_USERS_USE_CASE,
-} from "@/application/usecases";
+  CREATE_USER_USE_CASE,
+} from "@/domain/features";
 
 @Service()
 @Resolver()

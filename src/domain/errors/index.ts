@@ -1,1 +1,1 @@
-export * from "./user.erros";
+export * from "./user.errors";

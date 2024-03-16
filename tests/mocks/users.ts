@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from "@/domain/features";
-import { FindUsersRepository } from "../domain/contracts/repositories";
+import { FindUsersRepository } from "@/domain/contracts/repositories";
 
 export const mockedUser: CreateUserUseCase.Input = {
   name: "Mocked name",

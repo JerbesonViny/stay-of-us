@@ -1,8 +1,6 @@
 import { createHash } from "crypto";
 import { Service } from "typedi";
-import { CreateHashService } from "@/domain/services";
-
-export const CREATE_HASH_SERVICE = "create-hash.service";
+import { CREATE_HASH_SERVICE, CreateHashService } from "@/domain/services";
 
 @Service(CREATE_HASH_SERVICE)
 export class CreateHashServiceImpl implements CreateHashService {

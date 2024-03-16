@@ -11,3 +11,5 @@ export namespace FindUsersUseCase {
 
 export interface FindUsersUseCase
   extends Feature<void, Promise<FindUsersUseCase.Output>> {}
+
+export const FIND_USERS_USE_CASE = "find-users.usecase";

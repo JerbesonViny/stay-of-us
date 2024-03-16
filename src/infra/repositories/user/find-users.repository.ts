@@ -1,9 +1,10 @@
 import { Inject, Service } from "typedi";
-import { FindUsersRepository } from "@/domain/contracts/repositories";
+import {
+  FindUsersRepository,
+  FIND_USERS_REPOSITORY,
+} from "@/domain/contracts/repositories";
 import { MONGO_CONNECTION } from "@/main/config/constants";
 import { Db } from "mongodb";
-
-export const FIND_USERS_REPOSITORY = "find-users.repository";
 
 @Service(FIND_USERS_REPOSITORY)
 export class FindUsersRepositoryImpl implements FindUsersRepository {

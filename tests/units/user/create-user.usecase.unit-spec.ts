@@ -4,7 +4,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { makeCreateUserUseCase } from "@/tests/units/user/factories";
-import { UserAlreadyExists } from "@/domain/errors";
+import {
+  PasswordDoesNotMatchConfirmPasswordError,
+  UserAlreadyExists,
+} from "@/domain/errors";
 import { mockedUser } from "@/tests/mocks";
 
 describe("CreateUserUseCase", () => {
@@ -32,5 +35,17 @@ describe("CreateUserUseCase", () => {
     const result = createUserUseCase.perform(mockedUser);
 
     expect(result).rejects.toThrowError("User already exists");
+  });
+
+  it("Should throw PasswordDoesNotMatchConfirmPasswordError when password does not match with confirm password", async () => {
+    createUserUseCase.perform.mockRejectedValueOnce(
+      new PasswordDoesNotMatchConfirmPasswordError()
+    );
+
+    const result = createUserUseCase.perform(mockedUser);
+
+    expect(result).rejects.toThrowError(
+      "Password does not match with confirm password"
+    );
   });
 });

@@ -1,9 +1,9 @@
 import { Inject, Service } from "typedi";
-import { FindUsersUseCase } from "@/domain/features";
-import { FindUsersRepository } from "@/domain/contracts/repositories";
-import { FIND_USERS_REPOSITORY } from "@/infra/repositories/user/find-users.repository";
-
-export const FIND_USERS_USE_CASE = "find-users.usecase";
+import { FindUsersUseCase, FIND_USERS_USE_CASE } from "@/domain/features";
+import {
+  FindUsersRepository,
+  FIND_USERS_REPOSITORY,
+} from "@/domain/contracts/repositories";
 
 @Service(FIND_USERS_USE_CASE)
 export class FindUsersUseCaseImpl implements FindUsersUseCase {
