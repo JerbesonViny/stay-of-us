@@ -2,7 +2,7 @@ import { Inject, Service } from "typedi";
 import { CreateUserUseCase } from "@/domain/features";
 import { CreateUserRepository } from "@/domain/contracts/repositories";
 import { CREATE_USER_REPOSITORY } from "@/infra/repositories";
-import { CREATE_HASH_SERVICE } from "@/application/services/create-hash";
+import { CREATE_HASH_SERVICE } from "@/application/services";
 import { CreateHashService } from "@/domain/services";
 
 export const CREATE_USER_USE_CASE = "create-user.usecase";
