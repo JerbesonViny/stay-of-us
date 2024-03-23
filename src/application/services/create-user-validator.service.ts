@@ -7,10 +7,7 @@ import {
   FIND_USER_REPOSITORY,
   FindUserRepository,
 } from "@/domain/contracts/repositories";
-import {
-  UserAlreadyExists,
-  PasswordDoesNotMatchConfirmPasswordError,
-} from "@/domain/errors";
+import { UserAlreadyExists } from "@/domain/errors";
 
 @Service(CREATE_USER_VALIDATOR_SERVICE)
 export class CreateUserValidatorServiceImpl
@@ -22,19 +19,7 @@ export class CreateUserValidatorServiceImpl
   ) {}
 
   async validate(input: CreateUserValidatorService.Input): Promise<boolean> {
-    this.validatePassword(input);
     this.checkUserExists(input);
-
-    return true;
-  }
-
-  private validatePassword({
-    password,
-    confirmPassword,
-  }: CreateUserValidatorService.ValidatePasswordInput): boolean {
-    if (password !== confirmPassword) {
-      throw new PasswordDoesNotMatchConfirmPasswordError();
-    }
 
     return true;
   }

@@ -1,14 +1,6 @@
 export namespace CreateUserValidatorService {
   export type Input = {
-    name: string;
     login: string;
-    password: string;
-    confirmPassword: string;
-  };
-
-  export type ValidatePasswordInput = {
-    password: string;
-    confirmPassword: string;
   };
 
   export type CheckUserExistsInput = {

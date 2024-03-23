@@ -13,15 +13,14 @@ export class CreateUserRepositoryImpl implements CreateUserRepository {
     private mongoConnection: Db
   ) {}
 
-  async perform({
-    name,
-    login,
-    password,
-  }: CreateUserRepository.Input): Promise<CreateUserRepository.Output> {
+  async perform(
+    userAccount: CreateUserRepository.Input
+  ): Promise<CreateUserRepository.Output> {
     const users = await this.mongoConnection.collection("users").insertOne({
-      name,
-      login,
-      password,
+      _id: userAccount.id,
+      name: userAccount.name,
+      login: userAccount.login,
+      password: userAccount.getPassword(),
     });
 
     return {

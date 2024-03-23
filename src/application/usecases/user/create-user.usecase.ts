@@ -10,6 +10,7 @@ import {
   CREATE_USER_VALIDATOR_SERVICE,
   CREATE_HASH_SERVICE,
 } from "@/domain/services";
+import { UserAccount } from "@/domain/entities";
 
 @Service(CREATE_USER_USE_CASE)
 export class CreateUserUseCaseImpl implements CreateUserUseCase {
@@ -29,21 +30,20 @@ export class CreateUserUseCaseImpl implements CreateUserUseCase {
     confirmPassword,
   }: CreateUserUseCase.Input): Promise<CreateUserUseCase.Output> {
     this.createUserValidatorService.validate({
-      name,
       login,
-      password,
-      confirmPassword,
     });
 
-    const passwordHashed = this.createHashService.perform({ text: password });
-    const { id } = await this.createUserRepository.perform({
-      name,
-      login,
-      password: passwordHashed,
-    });
+    const userAccount = new UserAccount({ name, login, password });
+    if (userAccount.validateCreateUser({ confirmPassword })) {
+      const passwordHashed = this.createHashService.perform({ text: password });
 
-    return {
-      id,
-    };
+      userAccount.setPassword({ password: passwordHashed });
+
+      const { id } = await this.createUserRepository.perform(userAccount);
+
+      return {
+        id,
+      };
+    }
   }
 }

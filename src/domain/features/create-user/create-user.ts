@@ -10,7 +10,7 @@ export namespace CreateUserUseCase {
 
   export type Output = {
     id: string;
-  };
+  } | void;
 }
 
 export interface CreateUserUseCase

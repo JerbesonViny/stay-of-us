@@ -1,9 +1,7 @@
+import { UserAccount } from "@/domain/entities";
+
 export namespace CreateUserRepository {
-  export type Input = {
-    name: string;
-    login: string;
-    password: string;
-  };
+  export type Input = UserAccount;
 
   export type Output = {
     id: string;

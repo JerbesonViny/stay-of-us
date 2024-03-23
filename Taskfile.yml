@@ -1,8 +1,5 @@
 version: '3'
 
-env:
-  GREETING: Hey, there!
-
 tasks:
   test:
     cmd: yarn test
