@@ -5,21 +5,15 @@ import {
   CreateUserOutput,
 } from "@/application/resolvers/user/types";
 import { Inject, Service } from "typedi";
-import {
-  FindUsersUseCase,
-  CreateUserUseCase,
-  CREATE_USER_USE_CASE,
-} from "@/domain/features";
-import { FIND_USERS_USE_CASE } from "@/application/usecases";
+
+import { CreateUserUseCase, FindUsersUseCase } from "@/application/usecases";
 
 @Service()
 @Resolver()
 export class UserResolver {
   constructor(
-    @Inject(FIND_USERS_USE_CASE)
-    private readonly findUsersService: FindUsersUseCase,
-    @Inject(CREATE_USER_USE_CASE)
-    private readonly createUserUseCase: CreateUserUseCase
+    private readonly findUsersService: FindUsersUseCase.UseCase,
+    private readonly createUserUseCase: CreateUserUseCase.UseCase
   ) {}
 
   @Query(() => [User])

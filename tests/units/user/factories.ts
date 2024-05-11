@@ -1,9 +1,5 @@
-import { CreateUserUseCase } from "@/domain/features";
 import { UserResolver } from "@/application/resolvers";
-import {
-  CreateUserUseCaseImpl,
-  FindUsersUseCaseImpl,
-} from "@/application/usecases";
+import { CreateUserUseCase, FindUsersUseCase } from "@/application/usecases";
 import {
   CreateHashServiceImpl,
   CreateUserValidatorServiceImpl,
@@ -14,15 +10,17 @@ import {
   FindUsers,
 } from "@/domain/contracts/repositories";
 import { mockedUsers } from "@/tests/mocks";
+import { Usecase } from "@/@shared/abstract.usecase";
 
-export function makeCreateUserUseCase() {
-  const createUserUseCaseSpy: CreateUserUseCase = {
+export function makeCreateUserUseCase(): Usecase<
+  CreateUserUseCase.Input,
+  CreateUserUseCase.Output
+> {
+  return {
     perform: jest.fn().mockResolvedValue({
       id: "Mocked id",
     }),
   };
-
-  return createUserUseCaseSpy;
 }
 
 export function makeUserResolver() {
@@ -37,8 +35,8 @@ export function makeUserResolver() {
     userRepository
   );
 
-  const findUsersUseCase = new FindUsersUseCaseImpl(userRepository);
-  const createUserUseCase = new CreateUserUseCaseImpl(
+  const findUsersUseCase = new FindUsersUseCase.UseCase(userRepository);
+  const createUserUseCase = new CreateUserUseCase.UseCase(
     createHashService,
     createUserValidatorService,
     userRepository

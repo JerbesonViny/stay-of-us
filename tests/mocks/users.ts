@@ -1,4 +1,4 @@
-import { CreateUserUseCase } from "@/domain/features";
+import { CreateUserUseCase } from "@/application/usecases";
 import { FindUsers } from "@/domain/contracts/repositories";
 
 export const mockedUser: CreateUserUseCase.Input = {

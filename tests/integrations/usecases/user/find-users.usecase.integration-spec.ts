@@ -3,7 +3,7 @@ import "../../../../src/main/config/module-alias";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { FindUsersUseCaseImpl } from "@/application/usecases";
+import { FindUsersUseCase } from "@/application/usecases";
 import { UserRepository } from "@/infra/repositories";
 import {
   MongoConnectionSingleton,
@@ -11,11 +11,12 @@ import {
 } from "@/main/config/mongo-connection";
 import { Db } from "mongodb";
 import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
-import { FindUsersUseCase } from "@/domain/features";
+
 import { FindUsers } from "@/domain/contracts/repositories";
+import { Usecase } from "@/@shared/abstract.usecase";
 
 describe("FindUsersUseCase", () => {
-  let findUsersUseCase: FindUsersUseCase;
+  let findUsersUseCase: Usecase<void, FindUsersUseCase.Output>;
   let userRepository: FindUsers;
   let mongoDatabase: MongoDatabase;
   let mongoConnection: Db;
@@ -29,7 +30,7 @@ describe("FindUsersUseCase", () => {
 
   beforeEach(async () => {
     userRepository = new UserRepository(mongoConnection);
-    findUsersUseCase = new FindUsersUseCaseImpl(userRepository);
+    findUsersUseCase = new FindUsersUseCase.UseCase(userRepository);
   });
 
   afterEach(async () => {

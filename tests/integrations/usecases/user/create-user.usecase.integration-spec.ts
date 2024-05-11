@@ -3,7 +3,7 @@ import "../../../../src/main/config/module-alias";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { CreateUserUseCaseImpl } from "@/application/usecases";
+import { CreateUserUseCase } from "@/application/usecases";
 import { UserRepository } from "@/infra/repositories";
 import {
   MongoConnectionSingleton,
@@ -11,7 +11,6 @@ import {
 } from "@/main/config/mongo-connection";
 import { Db } from "mongodb";
 import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
-import { CreateUserUseCase } from "@/domain/features";
 import { CreateUser, FindOneUser } from "@/domain/contracts/repositories";
 import { mockedUser } from "@/tests/mocks";
 import {
@@ -22,9 +21,13 @@ import {
   CreateHashService,
   CreateUserValidatorService,
 } from "@/domain/services";
+import { Usecase } from "@/@shared/abstract.usecase";
 
 describe("CreateUserUseCase", () => {
-  let createUserUseCase: CreateUserUseCase;
+  let createUserUseCase: Usecase<
+    CreateUserUseCase.Input,
+    CreateUserUseCase.Output
+  >;
   let userRepository: CreateUser & FindOneUser;
   let createHashService: CreateHashService;
   let createUserValidatorService: CreateUserValidatorService;
@@ -44,7 +47,7 @@ describe("CreateUserUseCase", () => {
     createUserValidatorService = new CreateUserValidatorServiceImpl(
       userRepository
     );
-    createUserUseCase = new CreateUserUseCaseImpl(
+    createUserUseCase = new CreateUserUseCase.UseCase(
       createHashService,
       createUserValidatorService,
       userRepository
