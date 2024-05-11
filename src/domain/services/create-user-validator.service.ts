@@ -9,7 +9,5 @@ export namespace CreateUserValidatorService {
 }
 
 export interface CreateUserValidatorService {
-  validate(input: CreateUserValidatorService.Input): Promise<boolean>;
+  validate(input: CreateUserValidatorService.Input): Promise<void>;
 }
-
-export const CREATE_USER_VALIDATOR_SERVICE = "create-user-validator.service";

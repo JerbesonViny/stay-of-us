@@ -8,9 +8,9 @@ import { Inject, Service } from "typedi";
 import {
   FindUsersUseCase,
   CreateUserUseCase,
-  FIND_USERS_USE_CASE,
   CREATE_USER_USE_CASE,
 } from "@/domain/features";
+import { FIND_USERS_USE_CASE } from "@/application/usecases";
 
 @Service()
 @Resolver()

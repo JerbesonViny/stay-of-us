@@ -27,6 +27,7 @@ export function createApolloServer({
       return {
         requestId,
         container,
+        context,
         req,
       };
     },
@@ -40,5 +41,8 @@ export function createApolloServer({
         }),
       },
     ],
+    formatError(error) {
+      return error;
+    },
   });
 }

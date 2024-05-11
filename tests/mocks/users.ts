@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from "@/domain/features";
-import { FindUsersRepository } from "@/domain/contracts/repositories";
+import { FindUsers } from "@/domain/contracts/repositories";
 
 export const mockedUser: CreateUserUseCase.Input = {
   name: "Mocked name",
@@ -8,7 +8,7 @@ export const mockedUser: CreateUserUseCase.Input = {
   confirmPassword: "Mocked password",
 };
 
-export const mockedUsers: FindUsersRepository.Output = [
+export const mockedUsers: FindUsers.Output = [
   {
     id: "65efab5cab6cb78fea15ee19",
     name: "Sophie",

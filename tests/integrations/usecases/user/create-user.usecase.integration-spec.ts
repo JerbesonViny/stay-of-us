@@ -4,10 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { CreateUserUseCaseImpl } from "@/application/usecases";
-import {
-  CreateUserRepositoryImpl,
-  FindUserRepositoryImpl,
-} from "@/infra/repositories";
+import { UserRepository } from "@/infra/repositories";
 import {
   MongoConnectionSingleton,
   MongoDatabase,
@@ -15,10 +12,7 @@ import {
 import { Db } from "mongodb";
 import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
 import { CreateUserUseCase } from "@/domain/features";
-import {
-  CreateUserRepository,
-  FindUserRepository,
-} from "@/domain/contracts/repositories";
+import { CreateUser, FindOneUser } from "@/domain/contracts/repositories";
 import { mockedUser } from "@/tests/mocks";
 import {
   CreateHashServiceImpl,
@@ -31,8 +25,7 @@ import {
 
 describe("CreateUserUseCase", () => {
   let createUserUseCase: CreateUserUseCase;
-  let createUserRepository: CreateUserRepository;
-  let findUserRepository: FindUserRepository;
+  let userRepository: CreateUser & FindOneUser;
   let createHashService: CreateHashService;
   let createUserValidatorService: CreateUserValidatorService;
   let mongoDatabase: MongoDatabase;
@@ -47,15 +40,14 @@ describe("CreateUserUseCase", () => {
 
   beforeEach(async () => {
     createHashService = new CreateHashServiceImpl();
-    createUserRepository = new CreateUserRepositoryImpl(mongoConnection);
-    findUserRepository = new FindUserRepositoryImpl(mongoConnection);
+    userRepository = new UserRepository(mongoConnection);
     createUserValidatorService = new CreateUserValidatorServiceImpl(
-      findUserRepository
+      userRepository
     );
     createUserUseCase = new CreateUserUseCaseImpl(
       createHashService,
       createUserValidatorService,
-      createUserRepository
+      userRepository
     );
   });
 

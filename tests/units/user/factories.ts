@@ -9,9 +9,9 @@ import {
   CreateUserValidatorServiceImpl,
 } from "@/application/services";
 import {
-  CreateUserRepository,
-  FindUserRepository,
-  FindUsersRepository,
+  CreateUser,
+  FindOneUser,
+  FindUsers,
 } from "@/domain/contracts/repositories";
 import { mockedUsers } from "@/tests/mocks";
 
@@ -26,34 +26,28 @@ export function makeCreateUserUseCase() {
 }
 
 export function makeUserResolver() {
-  const findUsersRepository: FindUsersRepository = {
-    perform: jest.fn().mockResolvedValue(mockedUsers),
-  };
-  const createUserRepository: CreateUserRepository = {
-    perform: jest.fn().mockResolvedValue({ id: "Mocked id" }),
-  };
-  const findUserRepository: FindUserRepository = {
-    perform: jest.fn().mockResolvedValue(null),
+  const userRepository: CreateUser & FindOneUser & FindUsers = {
+    findOne: jest.fn().mockResolvedValue(null),
+    find: jest.fn().mockResolvedValue(mockedUsers),
+    create: jest.fn().mockResolvedValue({ id: "Mocked id" }),
   };
 
   const createHashService = new CreateHashServiceImpl();
   const createUserValidatorService = new CreateUserValidatorServiceImpl(
-    findUserRepository
+    userRepository
   );
 
-  const findUsersUseCase = new FindUsersUseCaseImpl(findUsersRepository);
+  const findUsersUseCase = new FindUsersUseCaseImpl(userRepository);
   const createUserUseCase = new CreateUserUseCaseImpl(
     createHashService,
     createUserValidatorService,
-    createUserRepository
+    userRepository
   );
 
   const sut = new UserResolver(findUsersUseCase, createUserUseCase);
 
   return {
-    findUsersRepository,
-    createUserRepository,
-    findUserRepository,
+    userRepository,
     findUsersUseCase,
     createUserUseCase,
     createHashService,

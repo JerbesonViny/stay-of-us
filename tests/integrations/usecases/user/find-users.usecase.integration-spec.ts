@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { FindUsersUseCaseImpl } from "@/application/usecases";
-import { FindUsersRepositoryImpl } from "@/infra/repositories";
+import { UserRepository } from "@/infra/repositories";
 import {
   MongoConnectionSingleton,
   MongoDatabase,
@@ -12,11 +12,11 @@ import {
 import { Db } from "mongodb";
 import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
 import { FindUsersUseCase } from "@/domain/features";
-import { FindUsersRepository } from "@/domain/contracts/repositories";
+import { FindUsers } from "@/domain/contracts/repositories";
 
 describe("FindUsersUseCase", () => {
   let findUsersUseCase: FindUsersUseCase;
-  let findUsersRepository: FindUsersRepository;
+  let userRepository: FindUsers;
   let mongoDatabase: MongoDatabase;
   let mongoConnection: Db;
 
@@ -28,8 +28,8 @@ describe("FindUsersUseCase", () => {
   });
 
   beforeEach(async () => {
-    findUsersRepository = new FindUsersRepositoryImpl(mongoConnection);
-    findUsersUseCase = new FindUsersUseCaseImpl(findUsersRepository);
+    userRepository = new UserRepository(mongoConnection);
+    findUsersUseCase = new FindUsersUseCaseImpl(userRepository);
   });
 
   afterEach(async () => {
