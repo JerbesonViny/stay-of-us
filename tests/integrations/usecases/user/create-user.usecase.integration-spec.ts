@@ -14,13 +14,10 @@ import { populateDatabase, resetDatabase } from "@/tests/utils/mongo";
 import { CreateUser, FindOneUser } from "@/domain/contracts/repositories";
 import { mockedUser } from "@/tests/mocks";
 import {
-  CreateHashServiceImpl,
-  CreateUserValidatorServiceImpl,
-} from "@/application/services";
-import {
   CreateHashService,
   CreateUserValidatorService,
-} from "@/domain/services";
+} from "@/application/services";
+import { CreateHash, CreateUserValidator } from "@/domain/services";
 import { Usecase } from "@/@shared/abstract.usecase";
 
 describe("CreateUserUseCase", () => {
@@ -29,8 +26,8 @@ describe("CreateUserUseCase", () => {
     CreateUserUseCase.Output
   >;
   let userRepository: CreateUser & FindOneUser;
-  let createHashService: CreateHashService;
-  let createUserValidatorService: CreateUserValidatorService;
+  let createHashService: CreateHash;
+  let createUserValidatorService: CreateUserValidator;
   let mongoDatabase: MongoDatabase;
   let mongoConnection: Db;
 
@@ -42,11 +39,9 @@ describe("CreateUserUseCase", () => {
   });
 
   beforeEach(async () => {
-    createHashService = new CreateHashServiceImpl();
+    createHashService = new CreateHashService();
     userRepository = new UserRepository(mongoConnection);
-    createUserValidatorService = new CreateUserValidatorServiceImpl(
-      userRepository
-    );
+    createUserValidatorService = new CreateUserValidatorService(userRepository);
     createUserUseCase = new CreateUserUseCase.UseCase(
       createHashService,
       createUserValidatorService,

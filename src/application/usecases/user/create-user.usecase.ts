@@ -1,9 +1,6 @@
 import { Inject, Service } from "typedi";
 import { CreateUser } from "@/domain/contracts/repositories";
-import {
-  CreateHashService,
-  CreateUserValidatorService,
-} from "@/domain/services";
+import { CreateHash, CreateUserValidator } from "@/domain/services";
 import { UserAccount } from "@/domain/entities";
 import { USER_REPOSITORY } from "@/infra/repositories";
 import {
@@ -28,9 +25,9 @@ export namespace CreateUserUseCase {
   export class UseCase implements Usecase<Input, Output> {
     constructor(
       @Inject(CREATE_HASH_SERVICE)
-      private readonly createHashService: CreateHashService,
+      private readonly createHashService: CreateHash,
       @Inject(CREATE_USER_VALIDATOR_SERVICE)
-      private createUserValidatorService: CreateUserValidatorService,
+      private createUserValidatorService: CreateUserValidator,
       @Inject(USER_REPOSITORY)
       private userRepository: CreateUser
     ) {}

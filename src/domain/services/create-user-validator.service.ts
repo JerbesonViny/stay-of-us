@@ -1,4 +1,4 @@
-export namespace CreateUserValidatorService {
+export namespace CreateUserValidator {
   export type Input = {
     login: string;
   };
@@ -8,6 +8,6 @@ export namespace CreateUserValidatorService {
   };
 }
 
-export interface CreateUserValidatorService {
-  validate(input: CreateUserValidatorService.Input): Promise<void>;
+export interface CreateUserValidator {
+  validate(input: CreateUserValidator.Input): Promise<void>;
 }

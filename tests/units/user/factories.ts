@@ -1,8 +1,8 @@
 import { UserResolver } from "@/application/resolvers";
 import { CreateUserUseCase, FindUsersUseCase } from "@/application/usecases";
 import {
-  CreateHashServiceImpl,
-  CreateUserValidatorServiceImpl,
+  CreateHashService,
+  CreateUserValidatorService,
 } from "@/application/services";
 import {
   CreateUser,
@@ -30,8 +30,8 @@ export function makeUserResolver() {
     create: jest.fn().mockResolvedValue({ id: "Mocked id" }),
   };
 
-  const createHashService = new CreateHashServiceImpl();
-  const createUserValidatorService = new CreateUserValidatorServiceImpl(
+  const createHashService = new CreateHashService();
+  const createUserValidatorService = new CreateUserValidatorService(
     userRepository
   );
 

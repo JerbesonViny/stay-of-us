@@ -1,9 +1,9 @@
-export namespace CreateHashService {
+export namespace CreateHash {
   export type Input = {
     text: string;
   };
 }
 
-export interface CreateHashService {
-  perform(input: CreateHashService.Input): string;
+export interface CreateHash {
+  perform(input: CreateHash.Input): string;
 }
